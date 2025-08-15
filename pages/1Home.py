@@ -2,7 +2,6 @@
 import streamlit as st
 
 def load_css():
-    """Memuat CSS kustom untuk seluruh aplikasi."""
     st.markdown("""
     <style>
         .main-header {
@@ -46,11 +45,9 @@ def load_css():
     </style>
     """, unsafe_allow_html=True)
 
-# --- Memuat Aset ---
 load_css()
 
 def render_home():
-    # Hero section
     col1, col2 = st.columns([2, 1])
     
     with col1:
@@ -94,5 +91,4 @@ def render_home():
     with col4:
         st.markdown('<div class="metric-card metric-card-4"><h3>100TB+</h3><p>Data Processed</p></div>', unsafe_allow_html=True)
 
-# Panggil fungsi untuk merender halaman
 render_home()

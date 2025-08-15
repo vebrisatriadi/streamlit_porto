@@ -2,22 +2,19 @@
 import streamlit as st
 
 def load_css():
-    """Memuat CSS kustom untuk seluruh aplikasi."""
     st.markdown("""
     <style>     
-        /* Style untuk kotak metrik individual */
         .individual-metric {
-            display: inline-block; /* Agar bisa diatur padding dan margin */
-            background-color: #f0f2f6; /* Warna latar belakang dasar */
-            color: #333; /* Warna teks */
-            padding: 8px 12px; /* Padding di dalam kotak */
-            margin: 4px; /* Jarak antar kotak */
-            border-radius: 8px; /* Sudut melengkung */
+            display: inline-block; 
+            background-color: #f0f2f6; 
+            color: #333; 
+            padding: 8px 12px;
+            margin: 4px;
+            border-radius: 8px;
             font-size: 1rem;
             font-weight: bold;
         }
 
-        /* Warna latar belakang yang berbeda untuk setiap metrik */
         .metric-bg-1 { background-color: #e1f5fe; color: #0277bd; } /* Light Blue */
         .metric-bg-2 { background-color: #fffde7; color: #f9a825; } /* Light Yellow */
         .metric-bg-3 { background-color: #e8f5e9; color: #1b5e20; } /* Light Green */
@@ -25,14 +22,11 @@ def load_css():
     </style>
     """, unsafe_allow_html=True)
 
-# --- Memuat Aset ---
 load_css()
 
 def render_about():
-    """Merender konten halaman About."""
     st.markdown('<h2 class="section-header">About Me</h2>', unsafe_allow_html=True)
     
-    # Sisa konten halaman About
     st.write("""
     ### Executive Summary
     A seasoned Data Engineer with a proven track record of architecting and maintaining scalable data infrastructure. 
@@ -140,5 +134,4 @@ def render_about():
     st.write("""Co-Author - Seminar Nasional Aplikasi Teknologi Informasi (SNATi) - 2017 - [Link](https://www.researchgate.net/publication/336711851_Rancang_Purwarupa_Aplikasi_UniBook_Menggunakan_Metode_Pendekatan_Design_Thinking)""")
 
 
-# Panggil fungsi untuk merender halaman
 render_about()

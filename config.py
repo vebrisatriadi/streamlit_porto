@@ -1,6 +1,5 @@
 # config.py
 
-# Data untuk daftar skills
 SKILLS_DATA = {
     "Programming Languages": ["Python,", "SQL,", "Scala,", "Java,", "Bash"],
     "Big Data Technologies": ["Apache Spark,", "Apache Kafka,", "Apache Flink,", "Apache Iceberg,", "Hadoop"],
@@ -11,8 +10,6 @@ SKILLS_DATA = {
     "Data Visualization": ["Tableau,", "Power BI,", "Plotly,", "Streamlit,", "Grafana"]
 }
 
-# Data untuk Radar Chart di halaman Skills
-# Pilih skill utama yang ingin Anda tonjolkan
 RADAR_CHART_DATA = {
     "Data Engineering": 85,
     "Data Analysis": 75,
@@ -24,7 +21,6 @@ RADAR_CHART_DATA = {
     "Data Architecture": 80,
 }
 
-# Informasi Kontak dan Sosial Media
 CONTACT_INFO = {
     "email": "vebrisatriadi@gmail.com",
     "phone": "+62 85156230373",

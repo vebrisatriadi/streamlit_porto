@@ -6,12 +6,10 @@ from config import CONTACT_INFO
 def send_email(name, email, subject, message_body):
     """Sends an email using yagmail and Streamlit secrets."""
     try:
-        # Load credentials from st.secrets
         yag = yagmail.SMTP(
             user=st.secrets["email"]["username"],
             password=st.secrets["email"]["password"]
         )
-        # Send the email
         yag.send(
             to=st.secrets["email"]["receiver"],
             subject=f"Vebri's Landing Page: {subject} from {name}",
@@ -23,7 +21,6 @@ def send_email(name, email, subject, message_body):
         return False, f"Failed to send email: {e}"
 
 def render_contact():
-    """Renders the Contact page content."""
     st.markdown('<h2 class="section-header">Get In Touch</h2>', unsafe_allow_html=True)
     
     col1, col2 = st.columns([1, 1])

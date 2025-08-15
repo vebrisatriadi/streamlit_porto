@@ -1,7 +1,6 @@
 # portfolio_app.py
 import streamlit as st
 
-# --- PAGE CONFIGURATION ---
 st.set_page_config(
     page_title="Vebri Satriadi | Data Engineer",
     page_icon="🏠",
@@ -9,12 +8,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- CUSTOM CSS ---
 def load_css():
-    """Memuat CSS kustom untuk seluruh aplikasi."""
     st.markdown("""
     <style>
-        /* CSS UNTUK MEMPERSEMPIT SIDEBAR */
         [data-testid="stSidebar"] {
             width: 250px !important;
             min-width: 250px !important;
@@ -35,7 +31,6 @@ def load_css():
             padding-bottom: 0.5rem;
             margin: 2.5rem 0 1.5rem 0;
         }
-        /* ... (sisa style CSS Anda yang lain) ... */
         .skill-badge-blue {
             display: inline-block;
             background-color: #3498db;
@@ -49,15 +44,7 @@ def load_css():
     </style>
     """, unsafe_allow_html=True)
 
-# --- Memuat Aset ---
 load_css()
-
-# ====================================================================
-# --- KONTEN HALAMAN HOME (VERSI BARU: HANYA GAMBAR) ---
-# ====================================================================
-
-# Membuat kolom untuk menengahkan gambar
-# Angka [1, 5, 1] berarti kolom tengah 5x lebih lebar dari kolom samping
 
 col1, col2, col3 = st.columns([1, 5, 1])
 with col2:
