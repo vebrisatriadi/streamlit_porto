@@ -59,15 +59,12 @@ if prompt := st.chat_input("Ask about my professional experience, skills, or pro
     ] + [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
 
     with st.chat_message("assistant"):
-        try:
-            stream = client.chat.completions.create(model="llama3-8b-8192", messages=api_messages, stream=True)
-            placeholder = st.empty()
-            full_response = ""
-            for chunk in stream:
-                if chunk.choices[0].delta.content:
-                    full_response += chunk.choices[0].delta.content
-                    placeholder.markdown(full_response + "▌")
-            placeholder.markdown(full_response)
-            st.session_state.messages.append({"role": "assistant", "content": full_response})
-        except Exception as e:
-            st.error(f"An error occurred while processing your request: {e}")
+        stream = client.chat.completions.create(model="llama3-8b-8192", messages=api_messages, stream=True)
+        placeholder = st.empty()
+        full_response = ""
+        for chunk in stream:
+            if chunk.choices[0].delta.content:
+                full_response += chunk.choices[0].delta.content
+                placeholder.markdown(full_response + "▌")
+        placeholder.markdown(full_response)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
