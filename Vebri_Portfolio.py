@@ -1,24 +1,22 @@
 import streamlit as st
-from openai import OpenAI
+from groq import Groq
 from chatbot_knowledge import get_knowledge_base_string
 
 st.set_page_config(page_title="Chat with AI Vebri", page_icon="🤖")
 st.markdown('<h2 class="section-header">Chat with AI Vebri</h2>', unsafe_allow_html=True)
 st.write(
-    "Ask me anything about Vebri's professional experiences, skills, or projects. "
+    "Ask me anything about Vebri's professional experiences, skills, or projects."
     "Me, as AI's version of Vebri will answer as you want!"
 )
 st.markdown("---")
 
+# Load both general and specific knowledge bases
 general_knowledge = get_knowledge_base_string()
 
 try:
-    client = OpenAI(
-        base_url="https://openrouter.ai/api/v1",
-        api_key=st.secrets["openrouter"]["api_key"], 
-    )
+    client = Groq(api_key=st.secrets["groq"]["api_key"])
 except Exception as e:
-    st.error("Failed to initialize the OpenRouter client. Please ensure your API key is correctly set in secrets.toml.")
+    st.error("Gagal menginisialisasi klien Groq. Pastikan API Key Anda sudah benar di secrets.toml.")
     st.stop()
 
 if "messages" not in st.session_state:
@@ -35,7 +33,10 @@ if prompt := st.chat_input("Ask about my professional experience, skills, or pro
     with st.chat_message("user"):
         st.markdown(prompt)
 
+    # --- New Logic: Check for specific answer first ---
+
     with st.chat_message("assistant"):
+        # If not found, use the Groq API
         system_prompt = f"""
             You are 'AI Vebri', an AI assistant serving as a digital version of Vebri Satriadi's portfolio.
 
@@ -63,12 +64,14 @@ if prompt := st.chat_input("Ask about my professional experience, skills, or pro
         ] + [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
 
         stream = client.chat.completions.create(
-            model="openai/gpt-oss-20b:free",
-            messages=api_messages,
+            model="openai/gpt-oss-20b", 
+            messages=api_messages, 
             stream=True,
-            temperature=0.2,
+            temperature=0.3,
+            # max_tokens=512,
+            # top_p=0.9
         )
-
+        
         placeholder = st.empty()
         full_response = ""
         for chunk in stream:
@@ -76,5 +79,5 @@ if prompt := st.chat_input("Ask about my professional experience, skills, or pro
                 full_response += chunk.choices[0].delta.content
                 placeholder.markdown(full_response + "▌")
         placeholder.markdown(full_response)
-
+    
     st.session_state.messages.append({"role": "assistant", "content": full_response})
