@@ -157,16 +157,6 @@ PROJECT = [
     },
 ]
 
-CULTURE_FIT = [
-    "Collaborative Leadership: Proven track record of working effectively with cross-functional teams including Data Analysts, DevOps Engineers, and business stakeholders",
-    "Mentorship & Growth: Dedicated to knowledge sharing and mentoring, demonstrated through roles at COMPFEST and Alterra Academy",
-    "Innovation & Optimization: Consistently drive improvements in performance, costs, and efficiency across projects",
-    "Problem-Solving: Strong analytical approach to technical challenges, resulting in significant improvements in data processing and infrastructure",
-    "Adaptability: Experience working across multiple cloud platforms (AWS, GCP) and diverse technical environments",
-    "Client-Focused: Successfully managed relationships with global clients and stakeholders in freelance projects",
-    "Continuous Learning: Actively pursuing knowledge in MLOps and DataOps to bridge engineering and machine learning"
-]
-
 EDUCATION_CERTIFICATIONS = [
     "S1 Teknik Informatika, Universitas Indonesia (2016-2020)",
     "Google Cloud Professional Data Engineer (2023)"
@@ -352,10 +342,6 @@ def get_knowledge_base_string():
     for category, skills in SKILLS_DATA.items():
         skills_section += f"- **{category}:** {', '.join(skills)}\n"
 
-    culture_fit = "\n### Culture Fit\n"
-    for fit in CULTURE_FIT:
-        culture_fit += f"- {fit}\n"
-
     common_qa_section = "\n### Common Q&A\n"
     for qa in COMMON_QA:
         common_qa_section += f"- **{qa['question']}**: {qa['answer']}\n"
@@ -367,8 +353,7 @@ def get_knowledge_base_string():
         mentoring_section + 
         project_section +
         education_section + 
-        skills_section + 
-        culture_fit
+        skills_section
     )
     
     return full_knowledge
