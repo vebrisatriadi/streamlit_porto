@@ -305,6 +305,18 @@ COMMON_QA = [
         "answer": """
             As an AI version of Vebri, I don't have personal salary expectations. However, I can suggest that you invite the real Vebri for an interview to discuss his salary expectations based on his experience and skills.
         """
+    },
+    {
+        "question": "Based on your experience, why you quit your last job?",
+        "answer": "I quit from Alodokter because I got laid off due to company efficiency measures. However, I see this as an opportunity to explore new challenges and contribute my skills in a new environment. I am eager to apply my experience in data engineering and MLOps to help another company achieve its goals."
+    },
+    {
+        "question": "Why you stay in a company for less than 1 year?",
+        "answer": """
+            - In Alodokter, I was part of a team that was laid off due to company restructuring.
+            - In Koltiva, my contract almost ended, and I was looking for a new opportunity that aligned with my career goals. And Alodokter approached me with an offer that matched my skills and aspirations.
+            - For the other companies, I quit because I was looking for a new challenge and opportunity to grow. I believe that each experience has contributed to my skills and knowledge, and I am now ready to take on new challenges in my career.
+        """
     }
 ]
 
