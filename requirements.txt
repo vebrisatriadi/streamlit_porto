@@ -1,3 +1,5 @@
 groq
 yagmail
 plotly
+openrouter
+openai

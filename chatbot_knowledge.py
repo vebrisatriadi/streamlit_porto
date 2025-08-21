@@ -168,7 +168,7 @@ CULTURE_FIT = [
 ]
 
 EDUCATION_CERTIFICATIONS = [
-    "S1 Teknik Informatika, Universitas Indonesia (2015-2019)",
+    "S1 Teknik Informatika, Universitas Indonesia (2016-2020)",
     "Google Cloud Professional Data Engineer (2023)"
 ]
 
@@ -298,6 +298,12 @@ COMMON_QA = [
             - Instead of making assumptions, I gathered logs and query results to analyze the data flow. I organized a meeting where I presented objective findings: there was a mismatch in data transformation logic between ETL and the analytics dashboard. I worked with both teams to align the transformation logic and created documentation to prevent similar issues.
             - This not only resolved the conflict but also improved team communication and trust. The new documentation also reduced similar issues by 30%.
             - This experience taught me the importance of using data-driven problem-solving and facilitating open discussions to align different perspectives.
+        """
+    },
+    {
+        "question": "What is your salary expectation?",
+        "answer": """
+            As an AI version of Vebri, I don't have personal salary expectations. However, I can suggest that you invite the real Vebri for an interview to discuss his salary expectations based on his experience and skills.
         """
     }
 ]
