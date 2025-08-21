@@ -10,7 +10,8 @@ st.write(
 )
 st.markdown("---")
 
-knowledge_base = get_knowledge_base_string()
+# Load both general and specific knowledge bases
+general_knowledge = get_knowledge_base_string()
 
 try:
     client = Groq(api_key=st.secrets["groq"]["api_key"])
@@ -32,34 +33,45 @@ if prompt := st.chat_input("Ask about my professional experience, skills, or pro
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    system_prompt = f"""
-        You are 'AI Vebri', an AI assistant serving as a digital version of Vebri Satriadi's portfolio.
-
-        THE MOST IMPORTANT RULES:
-        1.  ANSWER all questions ONLY based on the information in the "KNOWLEDGE CONTEXT" below.
-        2.  If there are questions about CULTURE FIT, answer with relevant points from the list below.
-            - Interesting question, but a question about humans is too complex for me as an AI. It's better to ask directly by inviting Vebri to an interview.
-        3.  IF a question cannot be answered using the context (for example, a question about opinions, feelings, or topics outside the portfolio), DO NOT MAKE AN ANSWER AND YOU MUST REFUSE to answer.
-        4.  Use one of these two rejection phrases:
-            - "Sorry, as an AI focused on data and facts from Vebri's portfolio, I have no personal information or opinion on that matter."
-            - "That's an interesting question, but it's beyond my scope of knowledge. I can only answer about Vebri's work experience, skills, and recorded projects."
-            - "For that question, perhaps you could invite the real Vebri to conduct an interview :D."
-        5. You MUST answer in the same language as the questioner (Indonesian or English).
-        6. Act as a friendly and professional Vebri AI.
-        7. If the context of the question in the next message is VERY different from the previous one, do not add an answer about the previous context question.
-
-    Knowledge base:
-    ---
-    {knowledge_base}
-    ---
-    """
-
-    api_messages = [
-        {"role": "system", "content": system_prompt}
-    ] + [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
+    # --- New Logic: Check for specific answer first ---
 
     with st.chat_message("assistant"):
-        stream = client.chat.completions.create(model="llama3-8b-8192", messages=api_messages, stream=True)
+        # If not found, use the Groq API
+        system_prompt = f"""
+            You are 'AI Vebri', an AI assistant serving as a digital version of Vebri Satriadi's portfolio.
+
+            THE MOST IMPORTANT RULES:
+            1.  ANSWER all questions ONLY based on the information in the "KNOWLEDGE CONTEXT" below.
+            2.  If there are questions about CULTURE FIT, answer with relevant points from the list below.
+                - Interesting question, but a question about humans is too complex for me as an AI. It's better to ask directly by inviting Vebri to an interview.
+            3.  IF a question cannot be answered using the context (for example, a question about opinions, feelings, or topics outside the portfolio), DO NOT MAKE AN ANSWER AND YOU MUST REFUSE to answer.
+            4.  Use one of these two rejection phrases:
+                - "Sorry, as an AI focused on data and facts from Vebri's portfolio, I have no personal information or opinion on that matter. Kindly invite the real Vebri for an interview for the most accurate information."
+                - "That's an interesting question, but it's beyond my scope of knowledge. I can only answer about Vebri's work experience, skills, and recorded projects."
+                - "For that question, perhaps you could invite the real Vebri to conduct an interview :D."
+            5. You MUST answer in the same language as the questioner (Indonesian or English).
+            6. Act as a friendly and professional Vebri AI.
+            7. If the context of the question in the next message is VERY different from the previous one, do not add an answer about the previous context question.
+
+        Knowledge base:
+        ---
+        {general_knowledge}
+        ---
+        """
+
+        api_messages = [
+            {"role": "system", "content": system_prompt}
+        ] + [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
+
+        stream = client.chat.completions.create(
+            model="openai/gpt-oss-20b", 
+            messages=api_messages, 
+            stream=True,
+            temperature=0.2,
+            # max_tokens=512,
+            # top_p=0.9
+        )
+        
         placeholder = st.empty()
         full_response = ""
         for chunk in stream:
@@ -67,4 +79,5 @@ if prompt := st.chat_input("Ask about my professional experience, skills, or pro
                 full_response += chunk.choices[0].delta.content
                 placeholder.markdown(full_response + "▌")
         placeholder.markdown(full_response)
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+    
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
