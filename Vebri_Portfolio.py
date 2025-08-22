@@ -64,7 +64,7 @@ if prompt := st.chat_input("Ask about my professional experience, skills, or pro
         ] + [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
 
         stream = client.chat.completions.create(
-            model="openai/gpt-oss-20b", 
+            model="deepseek-r1-distill-llama-70b", 
             messages=api_messages, 
             stream=True,
             temperature=0.3,
